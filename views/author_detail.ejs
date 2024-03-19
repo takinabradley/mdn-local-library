@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <%- include('baseTemplateHead', {title}) %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+          <%- include('baseTemplateNav') %>
+        </div>
+
+        <div class="col-sm-10">
+          <h1>Author: <%= author.name %></h1>
+          <p>
+            (<%= author.date_of_birth_formatted %> - <%= author.date_of_death_formatted %>)
+          </p>
+
+          <div style="margin-left:20px;margin-top:20px">
+            <h2>Books</h2>
+            <dl>
+              <% author_books.forEach(book => { %>
+                <dt>
+                  <a href="<%= book.url %>"> <%= book.title %></a>
+                </dt>
+                <dd>
+                  <%= book.summary %>
+                </dd>
+              <% }) %>
+            </dl>
+
+            <hr>
+
+            <p>
+              <a href="<%= author.url + '/delete' %>">Delete Author</a>
+            </p>
+
+            <p>
+              <a href="<%= author.url + '/update' %>">Update Author</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

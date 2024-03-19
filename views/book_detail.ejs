@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <%- include('baseTemplateHead', {title}) %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+          <% if (useDefaultNav) { %>
+          <ul class="sidebar-nav">
+            <li><a href="/catalog">Home</a></li>
+            <li><a href="/catalog/books">All Books</a></li>
+            <li><a href="/catalog/authors">All Authors</a></li>
+            <li><a href="/catalog/genres">All genres</a></li>
+            <li><a href="/catalog/bookinstances">All book-instances</a></li>
+            <li><hr /></li>
+            <li><a href="/catalog/author/create">Create new author</a></li>
+            <li><a href="/catalog/genre/create">Create new genre</a></li>
+            <li><a href="/catalog/book/create">Create new book</a></li>
+            <li>
+              <a href="/catalog/bookinstance/create"
+                >Create new book instance (copy)</a
+              >
+            </li>
+          </ul>
+          <% } else {} %>
+        </div>
+
+        <div class="col-sm-10">
+          <h1>Title: <%= book.title %></h1>
+
+          <p>
+            <strong>Author: </strong>
+            <a href="<%= book.author.url %>"><%= book.author.name%></a>
+          </p>
+
+          <p><strong>Summary: </strong><%= book.summary %></p>
+          <p><strong>ISBN: </strong><%= book.isbn %></p>
+          <p>
+            <strong>Genre: </strong>
+            <% book.genre.forEach( (genre, index, array) => { %>
+              <a href="<%= genre.url %>"><%= genre.name %></a>
+              <%- index < array.length - 1 ? ",&nbsp;" : '' %> 
+            <% }) %>
+          </p>
+
+          <div style="margin-left: 20px;margin-right:20px">
+            <h2>Copies</h2>
+
+            <% book_instances.forEach( book => { %>
+              <% 
+                let className = ''
+                switch(book.status) {
+                  case "Available":
+                    className = "text-success"
+                    break;
+                  case "Maintenance":
+                    className = "text-danger"
+                    break;
+                  default: 
+                    className = "text-warning"
+                }
+              %>
+              <hr>
+
+              <p class="<%= className %>">
+                <%= book.status %>
+              </p>
+
+              <p><strong>Imprint: </strong> <%= book.imprint %></p>
+              <p>
+                <% if(book.status !== "Available") { %> 
+                  <strong>Due Back: </strong> 
+                  <%= book.due_back_formatted %>
+                <% } %>
+              </p>
+            <% }) %>
+
+            <hr>
+
+            <p>
+              <a href="<%= book.url + '/delete' %>">Delete Book</a>
+            </p>
+
+            <p>
+              <a href="<%= book.url + '/update' %>">Update Book</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <%- include('baseTemplateHead', {title}) %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+
+          <ul class="sidebar-nav">
+            <li><a href="/catalog">Home</a></li>
+            <li><a href="/catalog/books">All Books</a></li>
+            <li><a href="/catalog/authors">All Authors</a></li>
+            <li><a href="/catalog/genres">All genres</a></li>
+            <li><a href="/catalog/bookinstances">All book-instances</a></li>
+            <li><hr /></li>
+            <li><a href="/catalog/author/create">Create new author</a></li>
+            <li><a href="/catalog/genre/create">Create new genre</a></li>
+            <li><a href="/catalog/book/create">Create new book</a></li>
+            <li>
+              <a href="/catalog/bookinstance/create">
+                Create new book instance (copy)
+              </a>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="col-sm-10">
+          <h1>ID: <%- bookinstance._id %></h1>
+
+          <p>
+            <strong>Title: </strong>
+            <a href="<%= bookinstance.book.url %>">
+              <%= bookinstance.book.title %>
+            </a>
+          </p>
+
+          <p><strong>Imprint: </strong><%= bookinstance.imprint %></p>
+
+          <p>
+            <strong>Status: </strong>
+            <% 
+            let className = '' 
+            switch(bookinstance.status) { 
+              case "Available": 
+                className = "text-success" 
+                break
+              case "Maintenance":
+                className = "text-danger" 
+                break 
+              default: 
+              className = "text-warning"
+            } 
+            %>
+
+            <span class="<%= className %>"><%= bookinstance.status %></span>
+          </p>
+
+          <% if(bookinstance.status != "Available") { %>
+          <p>
+            <strong>Due Back: </strong>
+            <%= bookinstance.due_back_formatted %>
+          </p>
+          <% } %>
+
+          <hr>
+
+          <p><a href="<%= bookinstance.url + '/delete' %>">Delete</a></p>
+          <p><a href="<%= bookinstance.url + '/update' %>">Update</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

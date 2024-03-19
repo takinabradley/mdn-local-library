@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('baseTemplateHead', {title}) %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+          <%- include('baseTemplateNav') %>
+        </div>
+
+        <div class="col-sm-10">
+          <h1><%= title %> <%= bookinstance.book.title %></h1>
+          <p><%= bookinstance.imprint %></p>
+          <p><%= bookinstance.status %></p>
+          <% if (bookinstance.status !== 'Available') {%>
+               <p><%= bookinstance.due_back_formatted %></p>
+          <% } %>
+          <hr>
+          <p>Do you really want to delete this bookinstance?</p>
+          <form method="POST">
+            <div class="form-group">
+              <input id="bookinstanceid" class="form-control" type="hidden" name="bookinstanceid" value="<%= bookinstance._id %>">
+            </div>
+            <button class="btn btn-primary" type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

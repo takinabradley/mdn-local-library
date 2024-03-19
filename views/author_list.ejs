@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <%- include('baseTemplateHead', {title}) %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+          <% if (useDefaultNav) { %>
+          <ul class="sidebar-nav">
+            <li><a href="/catalog">Home</a></li>
+            <li><a href="/catalog/books">All Books</a></li>
+            <li><a href="/catalog/authors">All Authors</a></li>
+            <li><a href="/catalog/genres">All genres</a></li>
+            <li><a href="/catalog/bookinstances">All book-instances</a></li>
+            <li><hr /></li>
+            <li><a href="/catalog/author/create">Create new author</a></li>
+            <li><a href="/catalog/genre/create">Create new genre</a></li>
+            <li><a href="/catalog/book/create">Create new book</a></li>
+            <li>
+              <a href="/catalog/bookinstance/create"
+                >Create new book instance (copy)</a
+              >
+            </li>
+          </ul>
+          <% } else {} %>
+        </div>
+
+        <div class="col-sm-10">
+          <h1><%= title %></h1>
+
+          <ul>
+            <% author_list.forEach(author => { %>
+            <li>
+              <a href="<%= author.url %>"><%= author.name %></a>
+              (<%= author.date_of_birth_formatted %> - <%= author.date_of_death_formatted %>)
+            </li>
+            <%})%>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

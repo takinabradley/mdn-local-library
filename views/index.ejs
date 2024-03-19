@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <%- include('baseTemplateHead', {title}) %>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+          <% if (useDefaultNav) { %>
+          <ul class="sidebar-nav">
+            <li><a href="/catalog">Home</a></li>
+            <li><a href="/catalog/books">All Books</a></li>
+            <li><a href="/catalog/authors">All Authors</a></li>
+            <li><a href="/catalog/genres">All genres</a></li>
+            <li><a href="/catalog/bookinstances">All book-instances</a></li>
+            <li><hr /></li>
+            <li><a href="/catalog/author/create">Create new author</a></li>
+            <li><a href="/catalog/genre/create">Create new genre</a></li>
+            <li><a href="/catalog/book/create">Create new book</a></li>
+            <li>
+              <a href="/catalog/bookinstance/create"
+                >Create new book instance (copy)</a
+              >
+            </li>
+          </ul>
+          <% } else {} %>
+        </div>
+        <div class="col-sm-10">
+          <h1><%= title %></h1>
+          <p>
+            Welcome to <em>LocalLibrary</em>, a very basic Express website
+            developed as a tutorial example on the Mozilla Developer Network.
+          </p>
+
+          <h1>Dynamic Content</h1>
+          <p>The library has the following record counts:</p>
+          <ul>
+            <li><strong>Books:</strong> <%- book_count %></li>
+            <li><strong>Copies:</strong> <%- book_instance_count %></li>
+            <li>
+              <strong>Copies Available:</strong>
+              <%- book_instance_available_count %>
+            </li>
+            <li><strong>Authors:</strong> <%- author_count %></li>
+            <li><strong>Genres:</strong> <%- genre_count %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
